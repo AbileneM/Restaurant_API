@@ -7,6 +7,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import database from './config/connection.js'
 import { getAllUsers } from './controllers/UserController.js';
+import rolesRoutes from './routes/rolesRoutes.js';
 
 //Creation de l'application express
 const app = express()
@@ -29,7 +30,9 @@ database.sync({ alter: true })
 app.get('/premiere-route',(req, res)=>res.send('Ceci est ma premiere route avec Express'));
 app.get('/api/users',getAllUsers)
 
+
 //Route pour les etudiants
+app.use('/api/roles', rolesRoutes);
 
 //Demarrage du serveur
 const PORT = process.env.PORT || 4000;

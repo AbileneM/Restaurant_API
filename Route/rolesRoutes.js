@@ -1,18 +1,18 @@
-import express from "express";
+import express from 'express';
 import {
   getAllRoles,
   getRoleById,
   createRole,
   updateRole,
   deleteRole
-} from "../controllers/rolesController.js";
+} from '../controllers/rolesController.js';
 
 const router = express.Router();
 
-router.get("/", getAllRoles);
-router.get("/:id", getRoleById);
-router.post("/", createRole);
-router.put("/:id", updateRole);
-router.delete("/:id", deleteRole);
+router.get('/', getAllRoles);
+router.get('/:id', getRoleById);
+router.post('/', createRole);
+router.put('/:id', updateRole);
+router.delete('/:id', deleteRole);
 
 export default router;
