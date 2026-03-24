@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import Role from "../models/roles.js";
 
+// Récupérer tous les utilisateurs avec leur rôle
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({
@@ -12,6 +13,7 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
+// Récupérer un utilisateur par son id
 export const getUserById = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id, {
@@ -28,6 +30,7 @@ export const getUserById = async (req, res) => {
   }
 };
 
+// Ajouter un nouvel utilisateur
 export const createUser = async (req, res) => {
   try {
     const user = await User.create(req.body);
@@ -37,6 +40,7 @@ export const createUser = async (req, res) => {
   }
 };
 
+// Modifier un utilisateur par son id
 export const updateUser = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
@@ -52,6 +56,7 @@ export const updateUser = async (req, res) => {
   }
 };
 
+// Supprimer un utilisateur par son id
 export const deleteUser = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
