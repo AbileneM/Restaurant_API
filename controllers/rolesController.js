@@ -1,5 +1,6 @@
 import Role from "../models/roles.js";
 
+// Récupérer tous les rôles
 export const getAllRoles = async (req, res) => {
   try {
     const roles = await Role.findAll();
@@ -9,6 +10,7 @@ export const getAllRoles = async (req, res) => {
   }
 };
 
+// Récupérer un rôle par son id
 export const getRoleById = async (req, res) => {
   try {
     const role = await Role.findByPk(req.params.id);
@@ -23,6 +25,7 @@ export const getRoleById = async (req, res) => {
   }
 };
 
+// Ajouter un nouveau rôle
 export const createRole = async (req, res) => {
   try {
     const role = await Role.create(req.body);
@@ -32,6 +35,7 @@ export const createRole = async (req, res) => {
   }
 };
 
+// Modifier un rôle par son id
 export const updateRole = async (req, res) => {
   try {
     const role = await Role.findByPk(req.params.id);
@@ -47,6 +51,7 @@ export const updateRole = async (req, res) => {
   }
 };
 
+// Supprimer un rôle par son id
 export const deleteRole = async (req, res) => {
   try {
     const role = await Role.findByPk(req.params.id);
