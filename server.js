@@ -6,7 +6,7 @@ import compression from 'compression';
 import dotenv from 'dotenv'
 dotenv.config()
 import database from './config/connection.js'
-import { getAllUsers } from './controllers/UserController.js';
+import usersRoutes from './routes/usersRoutes.js';
 
 //Creation de l'application express
 const app = express()
@@ -30,7 +30,7 @@ app.get('/premiere-route',(req, res)=>res.send('Ceci est ma premiere route avec 
 app.get('/api/users',getAllUsers)
 
 //Route pour les etudiants
-
+app.get('/api/users',getAllUsers)
 //Demarrage du serveur
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, ()=>console.log(`Le serveur a demarre sur le port ${PORT}`));

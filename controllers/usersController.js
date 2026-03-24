@@ -1,4 +1,3 @@
-
 import User from "../models/User.js";
 import Role from "../models/roles.js";
 
@@ -7,7 +6,6 @@ export const getAllUsers = async (req, res) => {
     const users = await User.findAll({
       include: Role
     });
-
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
