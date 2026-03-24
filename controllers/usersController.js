@@ -1,4 +1,4 @@
-//Un controleur qui retourne tous les utilisateurs (employes, clients, etc) de la base de données
+
 import User from "../models/User.js";
 import Role from "../models/roles.js";
 
