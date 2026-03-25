@@ -33,7 +33,13 @@ export const getUserById = async (req, res) => {
 // Ajouter un nouvel utilisateur
 export const createUser = async (req, res) => {
   try {
-    const user = await User.create(req.body);
+    const user = await User.create({
+      nom: req.body.nom,
+      email: req.body.email,
+      password: req.body.password,
+      roleId: req.body.roleId
+    });
+
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -49,7 +55,13 @@ export const updateUser = async (req, res) => {
       return res.status(404).json({ message: "User introuvable" });
     }
 
-    await user.update(req.body);
+    await user.update({
+      nom: req.body.nom,
+      email: req.body.email,
+      password: req.body.password,
+      roleId: req.body.roleId
+    });
+
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
