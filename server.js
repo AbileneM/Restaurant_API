@@ -7,7 +7,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import connection from './config/db.js';
 import { getAllCategories, getCategorieById, updateCategorie, deleteCategorie, createCategorie } from './controllers/categoriesController.js';
-
+import { getAllMenu, getMenuById, createMenu, updateMenu, deleteMenu } from './controllers/menuController.js';
 //Creation de l'application express
 const app = express()
 
@@ -31,9 +31,16 @@ app.get('/', (req, res) => {
 //Routes pour les catégories
 app.get('/api/categories', getAllCategories);
 app.get('/api/categories/:id', getCategorieById);
-app.post('/api/categorie', createCategorie);
+app.post('/api/categories', createCategorie);
 app.put('/api/categories/:id', updateCategorie);
 app.delete('/api/categories/:id', deleteCategorie);
+
+//Routes pour les menus
+app.get('/api/menu', getAllMenu);
+app.get('/api/menu/:id', getMenuById);
+app.post('/api/menu', createMenu);
+app.put('/api/menu/:id', updateMenu);
+app.delete('/api/menu/:id', deleteMenu);
 
 //Demarrage du serveur
 const PORT = process.env.PORT || 4000;
