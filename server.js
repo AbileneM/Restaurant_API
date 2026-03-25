@@ -6,6 +6,7 @@ import compression from 'compression';
 import dotenv from 'dotenv'
 dotenv.config()
 import database from './config/connection.js'
+import validations from './validations/userValidation.js';
 
 // Models
 import './models/Clients.js';
@@ -52,31 +53,20 @@ app.get('/', (req, res) => {
 });
 
 // ROUTES CLIENTS
-app.get('/api/clients', listClientsValidation, getAllClients);
-app.get('/api/clients/:id', clientIdValidation, getClientById);
-app.post('/api/clients', createClientValidation, createClient);
-app.put('/api/clients/:id', updateClientValidation, updateClient);
-app.delete('/api/clients/:id', clientIdValidation, deleteClient);
-
-
+app.get('/api/clients', validations.listClientsValidation, getAllClients);
+app.get('/api/clients/:id', validations.clientIdValidation, getClientById);
+app.post('/api/clients', validations.createClientValidation, createClient);
+app.put('/api/clients/:id', validations.updateClientValidation, updateClient);
+app.delete('/api/clients/:id', validations.clientIdValidation, deleteClient);
 
 // ROUTES REVIEWS
-app.get('/api/reviews', listReviewsValidation, getAllReviews);
-app.get('/api/reviews/:id', reviewIdValidation, getReviewById);
-app.post('/api/reviews', createReviewValidation, createReview);
-app.put('/api/reviews/:id', updateReviewValidation, updateReview);
-app.delete('/api/reviews/:id', reviewIdValidation, deleteReview);
+app.get('/api/reviews', validations.listReviewsValidation, getAllReviews);
+app.get('/api/reviews/:id', validations.reviewIdValidation, getReviewById);
+app.post('/api/reviews', validations.createReviewValidation, createReview);
+app.put('/api/reviews/:id', validations.updateReviewValidation, updateReview);
+app.delete('/api/reviews/:id', validations.reviewIdValidation, deleteReview);
 
 
-// Sync DB
-database
-  .sync({ alter: true })
-  .then(() => {
-    console.log('La base de donnees a ete synchronisee avec succes');
-  })
-  .catch((error) => {
-    console.error('Erreur lors de la synchronisation de la base de donnees :', error);
-  });
 
 
 
