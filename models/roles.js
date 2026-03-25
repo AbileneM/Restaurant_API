@@ -1,23 +1,19 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
 
-// Définition du modèle roles
-// Cette table sert à stocker les rôles des utilisateurs
+// Modèle de la table roles
 const Role = sequelize.define("roles", {
-  // Clé primaire de la table roles
   id_role: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-
-  // Nom du rôle : admin ou employe
-  name: {
+  nom_role: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   }
 }, {
-  // Désactive les colonnes createdAt et updatedAt
   timestamps: false
 });
 
