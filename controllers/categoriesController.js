@@ -1,4 +1,5 @@
-import Categorie from '../models/Categories.js';
+import Categorie from '../models/Categorie.js';
+//import { Categorie } from '../models/relation.js';
 
 export const getAllCategories = async (req, res) => {
     try {
@@ -18,7 +19,7 @@ export const getCategorieById = async (req, res) => {
         }
         res.status(200).json({data: categorie});
     } catch (error) {
-        res.status(400).json({message: error.message});
+        res.status(500).json({message: error.message});
     }
 };
 
@@ -36,16 +37,14 @@ export const createCategorie = async (req, res) => {
 //Mettre à jour une catégorie
 export const updateCategorie = async (req, res) => {
     const { id } = req.params;
-    const { nom, description } = req.body;
+    const updateCategorie = { nom: req.body.nom, description: req.body.description };
+
+    if (!id) return res.status(400).json({ message: 'id is required' })
     try {
-        const categorie = await Categorie.findByPk(id);
-        if (!categorie) {
-            return res.status(404).json({message: 'La catégorie n\'a pas été trouvée.'});
-        }
-        await categorie.update({ nom, description });
-        res.status(200).json({data: categorie});
+        const result = await Categorie.update(updateCategorie, { where: { id_categorie: id } });
+        res.status(200).json({data: result});
     } catch (error) {
-        res.status(400).json({message: error.message});
+        res.status(404).json({message: error.message});
     }
 };
 
@@ -60,3 +59,5 @@ export const deleteCategorie = async (req, res) => {
         res.status(400).json({message: error.message});
     }
 };
+
+console.log(Categorie);
