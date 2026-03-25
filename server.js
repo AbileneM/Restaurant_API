@@ -7,7 +7,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import database from './config/db.js';
-import {getAllUsers,getUserById,createUser,updateUser,deleteUser} from './controllers/usersController.js';
+import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from './controllers/usersController.js';
+import { validateUser, validateLogin } from './validations/userValidation.js';
+import { login } from './auth/loginControllers.js';
 
 //Creation de l'application express
 const app = express();
@@ -30,9 +32,10 @@ app.get('/premiere-route', (req, res) => res.send('Ceci est ma premiere route av
 //Routes
 app.get('/api/users', getAllUsers);
 app.get('/api/users/:id', getUserById);
-app.post('/api/users', createUser);
+app.post('/api/users', validateUser, createUser);
 app.put('/api/users/:id', updateUser);
 app.delete('/api/users/:id', deleteUser);
+app.post('/api/login', validateLogin, login);
 
 //Demarrage du serveur
 const PORT = process.env.PORT || 4000;
