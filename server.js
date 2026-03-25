@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import database from './config/db.js';
+import { getAllRoles, getRoleById, createRole, updateRole, deleteRole } from './controllers/rolesController.js';
 import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from './controllers/usersController.js';
 import { validateUser, validateLogin } from './validations/userValidation.js';
 import { login } from './auth/loginControllers.js';
@@ -29,12 +30,21 @@ database.sync({ alter: true })
 //Creation de notre premiere route
 app.get('/premiere-route', (req, res) => res.send('Ceci est ma premiere route avec Express'));
 
-//Routes
+//Routes roles
+app.get('/api/roles', getAllRoles);
+app.get('/api/roles/:id', getRoleById);
+app.post('/api/roles', createRole);
+app.put('/api/roles/:id', updateRole);
+app.delete('/api/roles/:id', deleteRole);
+
+//Routes users
 app.get('/api/users', getAllUsers);
 app.get('/api/users/:id', getUserById);
 app.post('/api/users', validateUser, createUser);
 app.put('/api/users/:id', updateUser);
 app.delete('/api/users/:id', deleteUser);
+
+//Route login
 app.post('/api/login', validateLogin, login);
 
 //Demarrage du serveur
