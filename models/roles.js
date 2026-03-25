@@ -1,15 +1,14 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
 
-// Modèle de la table roles
 const Role = sequelize.define("roles", {
   id_role: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  nom_role: {
-    type: DataTypes.STRING,
+  name: {
+    type: DataTypes.STRING(50),
     allowNull: false,
     unique: true
   }

@@ -9,7 +9,6 @@ dotenv.config();
 import database from './config/db.js';
 import { getAllRoles, getRoleById, createRole, updateRole, deleteRole } from './controllers/rolesController.js';
 
-
 //Creation de l'application express
 const app = express();
 
@@ -34,7 +33,6 @@ app.get('/api/roles/:id', getRoleById);
 app.post('/api/roles', createRole);
 app.put('/api/roles/:id', updateRole);
 app.delete('/api/roles/:id', deleteRole);
-
 
 //Demarrage du serveur
 const PORT = process.env.PORT || 4000;

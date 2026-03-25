@@ -28,7 +28,10 @@ export const getRoleById = async (req, res) => {
 // Ajouter un nouveau rôle
 export const createRole = async (req, res) => {
   try {
-    const role = await Role.create(req.body);
+    const role = await Role.create({
+      name: req.body.name
+    });
+
     res.status(201).json(role);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -44,7 +47,10 @@ export const updateRole = async (req, res) => {
       return res.status(404).json({ message: "Role introuvable" });
     }
 
-    await role.update(req.body);
+    await role.update({
+      name: req.body.name
+    });
+
     res.status(200).json(role);
   } catch (error) {
     res.status(500).json({ message: error.message });
