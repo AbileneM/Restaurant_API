@@ -33,7 +33,7 @@ import { getAllReservations, getReservationById, createReservation, updateReserv
 import { getAllReviews, getReviewById, createReview, updateReview, deleteReview } from './controllers/reviewsController.js';
 
 //Importation des validations et login
-import { validateUser, validateLogin } from './validations/userValidation.js';
+import userValidator  from './validations/userValidation.js';
 import { login } from './auth/loginControllers.js';
 
 //Creation de l'application express
@@ -51,8 +51,8 @@ database.sync({ alter: true })
     .then(() => console.log('La base de données a été synchronisée avec succès.'))
     .catch((error) => console.error('Erreur lors de la synchronisation de la base de données :', error));
 
-//Creation de notre premiere route
-app.get('/premiere-route', (req, res) => res.send('Ceci est ma premiere route avec Express'));
+//Création de notre premiere route
+app.get('/', (req, res) => res.send('Bienvenue sur notre API de restaurant !'));
 
 //Routes roles
 app.get('/api/roles', getAllRoles);
@@ -64,7 +64,7 @@ app.delete('/api/roles/:id', deleteRole);
 //Routes users
 app.get('/api/users', getAllUsers);
 app.get('/api/users/:id', getUserById);
-app.post('/api/users', validateUser, createUser);
+app.post('/api/users', userValidator, createUser);
 app.put('/api/users/:id', updateUser);
 app.delete('/api/users/:id', deleteUser);
 
@@ -111,7 +111,7 @@ app.put('/api/reviews/:id', updateReview);
 app.delete('/api/reviews/:id', deleteReview);
 
 //Route login
-app.post('/api/login', validateLogin, login);
+app.post('/api/login', userValidator, login);
 
 //Demarrage du serveur
 const PORT = process.env.PORT || 4000;

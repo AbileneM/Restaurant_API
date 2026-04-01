@@ -1,5 +1,7 @@
 import Role from "../models/roles.js";
 
+import { validationResult } from "express-validator";
+
 // Récupérer tous les rôles
 export const getAllRoles = async (req, res) => {
   try {

@@ -32,16 +32,24 @@ export const getMenuById = async (req, res) => {
 
 // Ajouter un nouveau menu
 export const createMenu = async (req, res) => {
-  try {
-    const menu = await Menu.create({
-      nom: req.body.nom,
-      description: req.body.description,
-      prix: req.body.prix,
-      image_plat: req.body.image_plat,
-      id_categorie: req.body.id_categorie
-    });
+  const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
-    res.status(201).json(menu);
+  //Construire le chemin complet de l'image
+    const picture = req.file
+    //console.log('path', req.body)
+    const imagePath = picture?.path?.split('\\').join('/')
+    const fullPath = picture ? req.protocol + '://' + req.get('host') + '/' + imagePath : null
+  
+  try {
+    const { nom, description, prix, image_plat, id_categorie } = req.body;
+
+    const newMenu = {nom, description, prix, image_plat:fullPath, id_categorie }
+    
+    const menu = await Menu.create(newMenu);
+    res.status(201).json({ message: "Plat créé avec succès" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

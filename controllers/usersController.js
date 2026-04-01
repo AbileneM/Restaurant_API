@@ -1,5 +1,7 @@
 import User from "../models/User.js";
 import Role from "../models/roles.js";
+import { validationResult } from "express-validator";
+import bcrypt from "bcryptjs";
 
 // Récupérer tous les utilisateurs avec leur rôle
 export const getAllUsers = async (req, res) => {
@@ -21,26 +23,29 @@ export const getUserById = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ message: "User introuvable" });
+      return res.status(404).json({ message: "Utilisateur introuvable" });
     }
 
-    res.status(200).json(user);
+    res.status(200).json({ data: user })
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
 // Ajouter un nouvel utilisateur
 export const createUser = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
   try {
-    const user = await User.create({
-      nom: req.body.nom,
-      email: req.body.email,
-      password: req.body.password,
-      roleId: req.body.roleId
-    });
+    const mdpHache=bcrypt.hashSync(password, 10)
+    const { nom, email, password, roleId } = req.body
+    const newUser = { nom, email, password: mdpHache, roleId}
 
-    res.status(201).json(user);
+    const user = await User.create(newUser)
+
+    res.status(201).json({ message: "Utilisateur ajouté avec succès" })
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
