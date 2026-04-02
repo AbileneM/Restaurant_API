@@ -17,3 +17,9 @@ Description de chaque table
     menu: informations sur les les plats offerts par le restaurant, incluant leur nom, description, prix et disponibilité.
 
     reviews: contient les avis et les notes laissés par les clients.
+
+    Partage des tables
+        Yanis: roles et users 
+        Abilène : categories et menu
+        Kamilia: clients et reviews
+        Agnès: reservations et tables
